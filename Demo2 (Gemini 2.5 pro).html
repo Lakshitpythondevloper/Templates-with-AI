@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTecha - Unlock Your Potential</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles and Animations -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a; /* Almost black for a modern feel */
+            color: #e5e7eb; /* Light gray for text */
+        }
+
+        /* --- Animated Gradient Background --- */
+        .hero-bg {
+            background: linear-gradient(-45deg, #1d4ed8, #3b82f6, #0891b2, #0d9488);
+            background-size: 400% 400%;
+            animation: gradient-flow 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Floating Shapes in Hero --- */
+        .hero-bg::before, .hero-bg::after {
+            content: '';
+            position: absolute;
+            width: 70vw;
+            height: 70vw;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 45%;
+            filter: blur(50px);
+            animation: float 20s infinite linear;
+        }
+
+        .hero-bg::before {
+            top: -20%;
+            left: -20%;
+        }
+
+        .hero-bg::after {
+            bottom: -20%;
+            right: -20%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% { transform: rotate(0deg) translate(10px) rotate(0deg); }
+            100% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
+        }
+        
+        /* --- Scroll-triggered Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Custom Card Styling --- */
+        .course-card {
+            background: rgba(31, 41, 55, 0.5); /* Semi-transparent dark bg */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3), 0 0 40px rgba(59, 130, 246, 0.5);
+        }
+
+        /* --- Custom Button --- */
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.7);
+        }
+        
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="fixed w-full top-0 z-50 transition-all duration-300" id="header">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-extrabold text-white">
+                    Edu<span class="text-blue-400">Techa</span>
+                </div>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#courses" class="text-gray-300 hover:text-white transition">Courses</a>
+                    <a href="#testimonials" class="text-gray-300 hover:text-white transition">Testimonials</a>
+                    <a href="#about" class="text-gray-300 hover:text-white transition">About</a>
+                </nav>
+                <button class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg cta-button">
+                    Get Started
+                </button>
+                <div class="md:hidden">
+                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="relative overflow-hidden">
+        <section class="hero-bg min-h-screen flex items-center justify-center pt-20">
+             <div class="relative z-10 text-center px-4">
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4">
+                    Learn Without Limits
+                </h1>
+                <p class="text-lg md:text-xl text-blue-200 max-w-3xl mx-auto mb-8">
+                    EduTecha is your gateway to the future. Master in-demand skills with our expert-led courses and state-of-the-art learning platform.
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#courses" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-lg cta-button text-lg">
+                        Explore Courses
+                    </a>
+                    <a href="#" class="bg-gray-700 bg-opacity-50 text-white font-bold py-3 px-8 rounded-lg cta-button text-lg border border-gray-600">
+                        Sign Up
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Courses Section -->
+        <section id="courses" class="py-20 md:py-32 bg-black bg-opacity-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white">Our Featured Courses</h2>
+                    <p class="text-lg text-gray-400 mt-4">Handpicked courses to launch your tech career.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Course Card 1 -->
+                    <div class="course-card rounded-2xl p-8 flex flex-col reveal">
+                        <div class="mb-6">
+                            <svg class="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Full-Stack Web Development</h3>
+                        <p class="text-gray-400 flex-grow mb-6">Master both front-end and back-end technologies to build complete web applications from scratch.</p>
+                        <a href="#" class="font-semibold text-blue-400 hover:text-blue-300 transition">Learn More &rarr;</a>
+                    </div>
+                    <!-- Course Card 2 -->
+                    <div class="course-card rounded-2xl p-8 flex flex-col reveal" style="transition-delay: 200ms;">
+                        <div class="mb-6">
+                            <svg class="w-16 h-16 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V3m0 18v-3M5.636 5.636l1.414 1.414m10.95 10.95l1.414 1.414M19.364 5.636l-1.414 1.414M6.05 19.95l-1.414-1.414"></path><circle cx="12" cy="12" r="4"></circle></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">AI & Machine Learning</h3>
+                        <p class="text-gray-400 flex-grow mb-6">Dive into the world of artificial intelligence. Learn to build and train models that can predict and learn.</p>
+                        <a href="#" class="font-semibold text-teal-400 hover:text-teal-300 transition">Learn More &rarr;</a>
+                    </div>
+                    <!-- Course Card 3 -->
+                    <div class="course-card rounded-2xl p-8 flex flex-col reveal" style="transition-delay: 400ms;">
+                         <div class="mb-6">
+                            <svg class="w-16 h-16 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">UI/UX Design Fundamentals</h3>
+                        <p class="text-gray-400 flex-grow mb-6">Create stunning, user-friendly interfaces. Learn the principles of design thinking and user experience.</p>
+                        <a href="#" class="font-semibold text-indigo-400 hover:text-indigo-300 transition">Learn More &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white">What Our Students Say</h2>
+                    <p class="text-lg text-gray-400 mt-4">Success stories from the EduTecha community.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    <!-- Testimonial 1 -->
+                    <div class="course-card rounded-2xl p-8 reveal">
+                        <p class="text-gray-300 text-lg italic mb-6">"EduTecha completely transformed my career path. The hands-on projects and mentorship were invaluable. I landed my dream job just weeks after completing the course!"</p>
+                        <div class="flex items-center">
+                             <img src="https://placehold.co/50x50/3b82f6/ffffff?text=SJ" class="w-12 h-12 rounded-full mr-4 border-2 border-blue-400" alt="Sarah Johnson">
+                            <div>
+                                <h4 class="font-bold text-white text-lg">Sarah Johnson</h4>
+                                <p class="text-gray-400">Software Engineer at TechCorp</p>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Testimonial 2 -->
+                    <div class="course-card rounded-2xl p-8 reveal" style="transition-delay: 200ms;">
+                        <p class="text-gray-300 text-lg italic mb-6">"The quality of the course content is top-notch. The instructors are experts in their field and are genuinely invested in your success. Highly recommended."</p>
+                        <div class="flex items-center">
+                             <img src="https://placehold.co/50x50/0d9488/ffffff?text=ML" class="w-12 h-12 rounded-full mr-4 border-2 border-teal-400" alt="Michael Lee">
+                            <div>
+                                <h4 class="font-bold text-white text-lg">Michael Lee</h4>
+                                <p class="text-gray-400">AI Specialist at InnovateAI</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer id="about" class="bg-gray-900 bg-opacity-50 border-t border-gray-800 py-16">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <div class="text-3xl font-extrabold text-white mb-4">
+                Edu<span class="text-blue-400">Techa</span>
+            </div>
+            <p class="mb-6">Empowering the next generation of innovators.</p>
+            <div class="flex justify-center space-x-6 mb-8">
+                 <a href="#" class="hover:text-white transition">Facebook</a>
+                 <a href="#" class="hover:text-white transition">Twitter</a>
+                 <a href="#" class="hover:text-white transition">LinkedIn</a>
+            </div>
+            <p>&copy; 2024 EduTecha. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <!-- JavaScript for Animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Header Background on Scroll ---
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-gray-900', 'bg-opacity-70', 'backdrop-blur-sm', 'shadow-lg');
+                } else {
+                    header.classList.remove('bg-gray-900', 'bg-opacity-70', 'backdrop-blur-sm', 'shadow-lg');
+                }
+            });
+            
+            // --- On-Scroll Reveal Animation ---
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            revealElements.forEach(element => {
+                observer.observe(element);
+            });
+
+        });
+    </script>
+
+</body>
+</html>

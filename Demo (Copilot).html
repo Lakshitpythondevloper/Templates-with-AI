@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EduTecha</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      overflow-x: hidden;
+    }
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      animation: slideDown 1s ease-out;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin: 0;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    section {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+      animation: fadeIn 2s ease-in;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      margin: 1rem 0;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.03);
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #111;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #fff, 0 0 10px #0ff; }
+      to { text-shadow: 0 0 20px #0ff, 0 0 30px #0ff; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EduTecha</h1>
+    <p>Your gateway to interactive learning</p>
+  </header>
+  <section>
+    <div class="card">
+      <h2>📘 Learn Programming</h2>
+      <p>Start from scratch or master Python, HTML, CSS, and JavaScript. Courses for every level.</p>
+    </div>
+    <div class="card">
+      <h2>🎨 Creative Projects</h2>
+      <p>Build eye-catching websites, animations, and apps. Unleash your imagination with code!</p>
+    </div>
+    <div class="card">
+      <h2>🚀 Real-World Practice</h2>
+      <p>Work on guided projects and learn with real-life examples tailored for students and beginners.</p>
+    </div>
+  </section>
+  <footer>
+    <p>© 2025 EduTecha | Made with 💡 by Lakshit Sharma</p>
+  </footer>
+</body>
+</html>

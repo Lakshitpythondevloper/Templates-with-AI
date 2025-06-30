@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTechA - Transform Your Learning Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --shadow: 0 10px 30px rgba(67, 97, 238, 0.2);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f7ff;
+            color: var(--dark);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(67, 97, 238, 0.05) 0%, rgba(255, 255, 255, 0) 30%);
+            z-index: -1;
+        }
+        
+        #vanta-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow);
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 2.2rem;
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 2.5rem;
+            transform: rotate(-5deg);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 8px 0;
+            transition: var(--transition);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            transform: translateY(0);
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            z-index: -1;
+            transition: var(--transition);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
+        }
+        
+        .btn:hover::before {
+            transform: scale(1.05);
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            margin-left: 20px;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 80px;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 650px;
+            z-index: 10;
+        }
+        
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--dark);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 0.3s;
+        }
+        
+        .hero h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            color: #555;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 0.6s;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 0.9s;
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55%;
+            max-width: 800px;
+            opacity: 0;
+            animation: fadeInRight 1.5s forwards 0.8s;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 30px 50px rgba(67, 97, 238, 0.3));
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .section-title h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .section-title p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            transform: translateY(0);
+            opacity: 0;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(67, 97, 238, 0.3);
+        }
+        
+        .feature-icon {
+            width: 90px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            background: var(--gradient);
+            border-radius: 50%;
+            font-size: 2.5rem;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .feature-card p {
+            color: #666;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        /* Courses Section */
+        .courses {
+            padding: 100px 0;
+            background: linear-gradient(to bottom, rgba(248, 249, 250, 0.8), rgba(240, 247, 255, 0.9));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            transform: translateY(0);
+            opacity: 0;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(67, 97, 238, 0.3);
+        }
+        
+        .course-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .course-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .course-card:hover .course-image img {
+            transform: scale(1.1);
+        }
+        
+        .course-category {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .course-content {
+            padding: 30px;
+        }
+        
+        .course-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #ffc107;
+        }
+        
+        .course-rating span {
+            color: #666;
+            margin-left: 10px;
+            font-weight: 500;
+        }
+        
+        .course-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .course-meta div {
+            display: flex;
+            align-items: center;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .course-meta i {
+            margin-right: 8px;
+            color: var(--primary);
+        }
+        
+        .course-price {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .testimonials-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin: 30px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 6rem;
+            font-family: serif;
+            color: var(--accent);
+            opacity: 0.2;
+            line-height: 1;
+        }
+        
+        .testimonial-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #555;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 20px;
+            border: 3px solid var(--accent);
+        }
+        
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .author-info p {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 80px 0 40px;
+            position: relative;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-about p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .footer-heading {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: white;
+            border-radius: 10px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links ul li a i {
+            margin-right: 10px;
+            font-size: 0.8rem;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .footer-contact i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+        
+        /* Animations */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0) translateY(-50%);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.3;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            .hero-image {
+                width: 50%;
+                right: -80px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                text-align: center;
+                padding-top: 150px;
+            }
+            .hero-content {
+                margin: 0 auto;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .hero-image {
+                position: relative;
+                width: 100%;
+                max-width: 600px;
+                right: auto;
+                top: auto;
+                transform: none;
+                margin: 60px auto 0;
+            }
+            nav ul {
+                display: none;
+            }
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .hero p {
+                font-size: 1.2rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Vanta.js Background -->
+    <div id="vanta-bg"></div>
+    
+    <!-- Particles -->
+    <div class="particles"></div>
+    
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Edu<span>TechA</span>
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Courses</a></li>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-buttons">
+                <a href="#" class="btn btn-outline">Login</a>
+                <a href="#" class="btn btn-primary">Register</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1>Transform Your <span>Learning Experience</span> With Technology</h1>
+                <p>Join 100,000+ students mastering new skills with our interactive courses and cutting-edge learning platform.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">Explore Courses</a>
+                    <a href="#" class="btn btn-outline">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="hero-image floating">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="EduTechA Learning Platform">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose EduTechA</h2>
+                <p>We provide the best learning experience with cutting-edge technology and innovative teaching methods</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Interactive Learning</h3>
+                    <p>Engage with interactive content, quizzes, and hands-on projects that make learning enjoyable and effective.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3>Expert Instructors</h3>
+                    <p>Learn from industry professionals and academic experts with years of experience in their fields.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Career Advancement</h3>
+                    <p>Gain skills that employers value and advance your career with our job-ready certification programs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Courses Section -->
+    <section class="courses">
+        <div class="container">
+            <div class="section-title">
+                <h2>Popular Courses</h2>
+                <p>Explore our most popular courses designed to help you master in-demand skills</p>
+            </div>
+            
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Web Development">
+                        <div class="course-category">Development</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>4.7 (2,450)</span>
+                        </div>
+                        <h3>Full Stack Web Development Bootcamp</h3>
+                        <p>Master HTML, CSS, JavaScript, React, Node.js, and MongoDB to build complete web applications.</p>
+                        <div class="course-meta">
+                            <div>
+                                <i class="far fa-clock"></i> 12 Weeks
+                            </div>
+                            <div>
+                                <i class="fas fa-user-graduate"></i> 3,450 Students
+                            </div>
+                        </div>
+                    </div>
+                    <div class="course-price">$199</div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Data Science">
+                        <div class="course-category">Data Science</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>4.9 (1,890)</span>
+                        </div>
+                        <h3>Data Science & Machine Learning</h3>
+                        <p>Learn Python, data analysis, visualization, and machine learning algorithms from scratch.</p>
+                        <div class="course-meta">
+                            <div>
+                                <i class="far fa-clock"></i> 16 Weeks
+                            </div>
+                            <div>
+                                <i class="fas fa-user-graduate"></i> 2,780 Students
+                            </div>
+                        </div>
+                    </div>
+                    <div class="course-price">$249</div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1115&q=80" alt="Digital Marketing">
+                        <div class="course-category">Marketing</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>4.5 (1,620)</span>
+                        </div>
+                        <h3>Digital Marketing Mastery</h3>
+                        <p>Learn SEO, social media marketing, content strategy, and analytics to grow businesses online.</p>
+                        <div class="course-meta">
+                            <div>
+                                <i class="far fa-clock"></i> 10 Weeks
+                            </div>
+                            <div>
+                                <i class="fas fa-user-graduate"></i> 2,150 Students
+                            </div>
+                        </div>
+                    </div>
+                    <div class="course-price">$179</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Student Testimonials</h2>
+                <p>Hear what our students have to say about their learning experience</p>
+            </div>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "EduTechA completely transformed my career. The Full Stack Development course gave me the skills I needed to land my dream job at a tech startup. The instructors are knowledgeable and the platform is intuitive."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Full Stack Developer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "The Data Science program exceeded my expectations. The practical projects and real-world case studies prepared me for challenges at work. I've already implemented several techniques I learned in my current role."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen">
+                        </div>
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p>Data Scientist</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">EduTechA</div>
+                    <p>Transforming education through technology. We provide high-quality courses and learning experiences to help you achieve your career goals.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Courses</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Features</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3 class="footer-heading">Popular Courses</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Web Development</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Data Science</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Digital Marketing</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> UI/UX Design</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Mobile App Development</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3 class="footer-heading">Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Education Street, Tech City, TC 10001</p>
+                    <p><i class="fas fa-phone-alt"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@edutecha.com</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 EduTechA. All rights reserved. Designed with <i class="fas fa-heart"></i> for the future of education.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize Vanta.js background
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x4361ee,
+            backgroundColor: 0xf0f7ff,
+            points: 12.00,
+            maxDistance: 22.00,
+            spacing: 18.00
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            const colors = ['#4361ee', '#3f37c9', '#4895ef', '#4cc9f0'];
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 20 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const animationDuration = Math.random() * 15 + 10;
+                const animationDelay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.backgroundColor = color;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animation = `float ${animationDuration}s ease-in-out ${animationDelay}s infinite`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Animate elements on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.feature-card, .course-card, .testimonial-card, .section-title');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = 1;
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Initial animation check
+            animateOnScroll();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Add hover effect to buttons
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
